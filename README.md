@@ -74,3 +74,5 @@ This project requires absolutely no backend setup or build tools.
 
 ## Author
 Developed as part of a modern assessment platform build.
+
+# online-quiz-platform
