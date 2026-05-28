@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - QuizMaster</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        @media (max-width: 992px) {
+            .admin-layout { grid-template-columns: 1fr; }
+        }
+        .question-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+        .question-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <span>QuizMaster</span>
+            </a>
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                <li><a href="admin.html" class="nav-link active">Admin Panel</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><button class="btn btn-icon theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="flex justify-between items-center mt-6 mb-6">
+            <h2>Admin Dashboard</h2>
+            <button id="add-new-btn" class="btn btn-primary">+ Add New Question</button>
+        </div>
+
+        <div class="admin-layout">
+            <!-- Form Card (Initially hidden or used for add/edit) -->
+            <div id="question-form-container" class="glass-card p-6 hidden">
+                <h3 id="form-title" class="mb-4">Add Question</h3>
+                <form id="question-form">
+                    <input type="hidden" id="q-id">
+                    
+                    <div class="form-group">
+                        <label for="q-text" class="form-label">Question Text</label>
+                        <textarea id="q-text" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Options</label>
+                        <input type="text" id="q-opt1" class="form-control mb-2" placeholder="Option 1" required>
+                        <input type="text" id="q-opt2" class="form-control mb-2" placeholder="Option 2" required>
+                        <input type="text" id="q-opt3" class="form-control mb-2" placeholder="Option 3" required>
+                        <input type="text" id="q-opt4" class="form-control mb-2" placeholder="Option 4" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="q-correct" class="form-label">Correct Option (1-4)</label>
+                        <select id="q-correct" class="form-control" required>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="q-category" class="form-label">Category</label>
+                        <input type="text" id="q-category" class="form-control" placeholder="e.g. JavaScript" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="q-difficulty" class="form-label">Difficulty</label>
+                        <select id="q-difficulty" class="form-control" required>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">Save</button>
+                        <button type="button" id="cancel-form-btn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Questions List -->
+            <div class="glass-card p-6" id="questions-list-container" style="grid-column: 1 / -1;">
+                <div class="flex justify-between items-center mb-4">
+                    <h3>Manage Questions</h3>
+                    <div class="form-group mb-0" style="width: 250px;">
+                        <input type="text" id="search-questions" class="form-control" placeholder="Search questions...">
+                    </div>
+                </div>
+                <div id="questions-list">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 QuizMaster Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About & Instructions - QuizMaster</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <span>QuizMaster</span>
+            </a>
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                <li><a href="admin.html" class="nav-link">Admin Panel</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><button class="btn btn-icon theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container" style="max-width: 800px;">
+        <div class="glass-card p-8 animate-fade-in mt-8">
+            <h2 class="mb-6 text-center text-primary">Quiz Instructions</h2>
+            
+            <div class="mb-8 text-secondary">
+                <ul class="flex flex-col gap-4" style="list-style-type: disc; padding-left: 1.5rem;">
+                    <li><strong>Time Limit:</strong> You have 15 seconds for each question. The quiz will auto-submit when the total time ends or when you answer all questions.</li>
+                    <li><strong>Navigation:</strong> You can navigate between questions using the 'Next' and 'Previous' buttons.</li>
+                    <li><strong>Scoring:</strong> Each correct answer awards you 10 points.</li>
+                    <li><strong>Negative Marking:</strong> There is no negative marking for incorrect answers.</li>
+                    <li><strong>Submission:</strong> Once submitted, you cannot change your answers. Results are shown immediately.</li>
+                </ul>
+            </div>
+
+            <div class="glass-panel p-6">
+                <h3 class="mb-4 text-center">Ready to begin?</h3>
+                <form id="start-form" class="flex flex-col gap-4">
+                    <div class="form-group mb-0">
+                        <label for="player-name" class="form-label">Enter your name for the leaderboard</label>
+                        <input type="text" id="player-name" class="form-control" placeholder="e.g., John Doe" required minlength="2" maxlength="20">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" style="width: 100%;">Start Quiz</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 QuizMaster Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('start-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const playerName = document.getElementById('player-name').value.trim();
+            if (playerName) {
+                sessionStorage.setItem('current_player', playerName);
+                window.location.href = 'quiz.html';
+            }
+        });
+    </script>
+</body>
+</html>

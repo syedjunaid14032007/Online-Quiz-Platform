@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz in Progress - QuizMaster</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background-color: var(--surface-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            color: var(--text-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .option-btn:hover {
+            border-color: var(--primary-light);
+            background-color: var(--primary-light);
+        }
+        .option-btn.selected {
+            border-color: var(--primary-color);
+            background-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+        .timer {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .timer-warning {
+            color: var(--danger-color);
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" style="padding: 0.5rem 0;">
+        <div class="container nav-container justify-center">
+            <span class="nav-brand">QuizMaster</span>
+        </div>
+    </nav>
+
+    <main class="container quiz-container mt-6 mb-6">
+        <div class="glass-card p-8 animate-fade-in">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <span id="question-counter" class="text-secondary font-weight-bold">Question 1 of 5</span>
+                    <span id="question-category" class="badge badge-primary ml-2" style="margin-left: 0.5rem;">Category</span>
+                </div>
+                <div class="timer" id="timer-display">
+                    ⏱️ <span id="time-left">15</span>s
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <!-- Question Area -->
+            <div class="mt-6 mb-6">
+                <h2 id="question-text" class="mb-6">Loading question...</h2>
+                <div id="options-container">
+                    <!-- Options injected via JS -->
+                </div>
+            </div>
+
+            <!-- Footer Controls -->
+            <div class="flex justify-between items-center mt-8 pt-4" style="border-top: 1px solid var(--border-color);">
+                <button id="prev-btn" class="btn btn-secondary" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary">Next</button>
+                <button id="submit-btn" class="btn btn-success hidden">Submit Quiz</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for early submission -->
+    <div class="modal-backdrop" id="submit-modal">
+        <div class="modal glass-card p-6">
+            <div class="modal-header">
+                <h3>Submit Quiz?</h3>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <p class="mb-6 text-secondary">Are you sure you want to submit your quiz? You still have time left.</p>
+            <div class="flex gap-4 justify-end">
+                <button class="btn btn-secondary" id="cancel-submit">Cancel</button>
+                <button class="btn btn-success" id="confirm-submit">Yes, Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/quiz.js"></script>
+</body>
+</html>

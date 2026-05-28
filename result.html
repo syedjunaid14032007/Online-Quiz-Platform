@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results - QuizMaster</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .result-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0 auto 2rem;
+            background: var(--glass-bg);
+            border: 8px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        .result-score {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--text-primary);
+        }
+        .result-total {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        .stat-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 1rem;
+            text-align: center;
+            flex: 1;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .review-item {
+            padding: 1.5rem;
+            border-radius: var(--border-radius-md);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--border-color);
+            background-color: var(--surface-color);
+        }
+        .review-correct { border-left-color: var(--success-color); }
+        .review-incorrect { border-left-color: var(--danger-color); }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear forwards;
+            z-index: 1000;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <span>QuizMaster</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mt-8 mb-8" style="max-width: 800px;">
+        <div class="glass-card p-8 animate-fade-in text-center">
+            <h2 class="mb-2">Quiz Completed!</h2>
+            <p class="text-secondary mb-6" id="player-greeting">Great job, Player!</p>
+            
+            <div class="result-circle">
+                <span class="result-score" id="final-score">0</span>
+                <span class="result-total" id="total-score">/ 0</span>
+            </div>
+
+            <h3 class="mb-6" id="performance-msg">Performance Message</h3>
+
+            <div class="flex gap-4 mb-8" style="flex-wrap: wrap;">
+                <div class="stat-card">
+                    <div class="stat-value text-success" id="correct-count">0</div>
+                    <div class="text-secondary">Correct</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-danger" id="wrong-count">0</div>
+                    <div class="text-secondary">Wrong</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-primary" id="percentage-val">0%</div>
+                    <div class="text-secondary">Percentage</div>
+                </div>
+            </div>
+
+            <div class="flex gap-4 justify-center">
+                <a href="quiz.html" class="btn btn-primary">Retry Quiz 🔄</a>
+                <a href="leaderboard.html" class="btn btn-secondary">View Leaderboard 🏆</a>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h3 class="mb-4 text-center">Detailed Review</h3>
+            <div id="detailed-review">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </main>
+
+    <script src="js/theme.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/result.js"></script>
+</body>
+</html>
