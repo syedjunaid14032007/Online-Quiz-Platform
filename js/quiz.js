@@ -181,10 +181,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const isSkipped = userAnswers[i] === null;
             
             if (isCorrect) {
-                score += 10;
+                score += 1;
                 correctAnswers++;
             } else if (!isSkipped) {
-                score -= 5; // Negative marking
+                score -= 0.25; // Negative marking
                 incorrectAnswers++;
             }
 
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const finalResult = {
             playerName: playerName,
             score: score,
-            totalPoints: questions.length * 10,
+            totalPoints: questions.length * 1,
             correctCount: correctAnswers,
             totalCount: questions.length,
             details: detailedResults,

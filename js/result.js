@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let answerHTML = '';
         if (item.isCorrect) {
-            answerHTML = `<p class="mt-2 text-success"><strong>Your Answer:</strong> ${item.selected} (+10 points)</p>`;
+            answerHTML = `<p class="mt-2 text-success"><strong>Your Answer:</strong> ${item.selected} (+1 points)</p>`;
         } else if (item.isSkipped) {
             answerHTML = `
                 <p class="mt-2 text-warning"><strong>Your Answer:</strong> Skipped (0 points)</p>
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         } else {
             answerHTML = `
-                <p class="mt-2 text-danger"><strong>Your Answer:</strong> ${item.selected} (-5 points)</p>
+                <p class="mt-2 text-danger"><strong>Your Answer:</strong> ${item.selected} (-0.25 points)</p>
                 <p class="mt-1 text-success"><strong>Correct Answer:</strong> ${item.correct}</p>
             `;
         }

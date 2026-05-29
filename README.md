@@ -115,27 +115,42 @@ Use VS Code Live Server extension.
 
 ---
 
-## 📸 Screenshots
 
-### Home Page
+### 📸 Screenshots
 
-(Add Screenshot Here)
+### 🏠 Home Page
 
-### Quiz Interface
+<img src="assets/screenshots/home.png" width="900">
 
-(Add Screenshot Here)
+### 📝 Quiz Interface
 
-### Results Page
+<img src="assets/screenshots/quiz.png" width="900">
 
-(Add Screenshot Here)
+### 📊 Results Dashboard
 
-### Leaderboard
+<img src="assets/screenshots/result.png" width="900">
 
-(Add Screenshot Here)
+### 🏆 Leaderboard
 
-### Admin Dashboard
+<img src="assets/screenshots/leaderboard.png" width="900">
 
-(Add Screenshot Here)
+### ⚙️ Admin Dashboard
+
+<img src="assets/screenshots/admin.png" width="900">
+
+---
+## 🌟 Key Highlights
+
+- Fully Responsive Design
+- Timed Quiz System
+- Dynamic Question Randomization
+- Leaderboard Ranking System
+- Admin CRUD Dashboard
+- Dark Mode Support
+- Instant Result Analytics
+- Local Storage Data Persistence
+- Mobile-Friendly Interface
+- Vercel Deployment
 
 ---
 
