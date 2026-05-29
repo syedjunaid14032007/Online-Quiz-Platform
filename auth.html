@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - QuizMaster</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <span>QuizMaster</span>
+            </a>
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                <li><a href="admin.html" class="nav-link">Admin Panel</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li id="nav-auth-item"><a href="auth.html" class="nav-link active">Login</a></li>
+                <li><button class="btn btn-icon theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="blob-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container flex justify-center items-center" style="min-height: 70vh; position: relative; z-index: 10;">
+        <div class="glass-card p-8 animate-fade-in" style="width: 100%; max-width: 400px;">
+            
+            <!-- Login Form -->
+            <div id="login-section">
+                <h2 class="mb-6 text-center text-gradient">Welcome Back</h2>
+                <form id="login-form" class="flex flex-col gap-4">
+                    <div class="form-group mb-0">
+                        <label for="login-username" class="form-label">Username</label>
+                        <input type="text" id="login-username" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label for="login-password" class="form-label">Password</label>
+                        <input type="password" id="login-password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" style="width: 100%; margin-top: 1rem;">Login</button>
+                    
+                    <p class="text-center mt-4 text-secondary text-sm">
+                        Don't have an account? <a href="#" id="show-register" class="text-primary font-weight-bold">Register here</a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Register Form (Hidden initially) -->
+            <div id="register-section" class="hidden">
+                <h2 class="mb-6 text-center text-gradient">Create Account</h2>
+                <form id="register-form" class="flex flex-col gap-4">
+                    <div class="form-group mb-0">
+                        <label for="reg-username" class="form-label">Username</label>
+                        <input type="text" id="reg-username" class="form-control" required minlength="3">
+                    </div>
+                    <div class="form-group mb-0">
+                        <label for="reg-password" class="form-label">Password</label>
+                        <input type="password" id="reg-password" class="form-control" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-secondary w-100" style="width: 100%; margin-top: 1rem;">Register</button>
+                    
+                    <p class="text-center mt-4 text-secondary text-sm">
+                        Already have an account? <a href="#" id="show-login" class="text-primary font-weight-bold">Login here</a>
+                    </p>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 QuizMaster Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

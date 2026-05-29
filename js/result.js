@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('final-score').textContent = resultData.score;
     document.getElementById('total-score').textContent = `/ ${resultData.totalPoints}`;
     
-    const percentage = Math.round((resultData.score / resultData.totalPoints) * 100);
+    const percentage = resultData.totalPoints > 0 ? Math.round((resultData.score / resultData.totalPoints) * 100) : 0;
     document.getElementById('percentage-val').textContent = `${percentage}%`;
     
     document.getElementById('correct-count').textContent = resultData.correctCount;
@@ -43,10 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let answerHTML = '';
         if (item.isCorrect) {
-            answerHTML = `<p class="mt-2 text-success"><strong>Your Answer:</strong> ${item.selected} (Correct)</p>`;
+            answerHTML = `<p class="mt-2 text-success"><strong>Your Answer:</strong> ${item.selected} (+10 points)</p>`;
+        } else if (item.isSkipped) {
+            answerHTML = `
+                <p class="mt-2 text-warning"><strong>Your Answer:</strong> Skipped (0 points)</p>
+                <p class="mt-1 text-success"><strong>Correct Answer:</strong> ${item.correct}</p>
+            `;
         } else {
             answerHTML = `
-                <p class="mt-2 text-danger"><strong>Your Answer:</strong> ${item.selected || 'Skipped'}</p>
+                <p class="mt-2 text-danger"><strong>Your Answer:</strong> ${item.selected} (-5 points)</p>
                 <p class="mt-1 text-success"><strong>Correct Answer:</strong> ${item.correct}</p>
             `;
         }

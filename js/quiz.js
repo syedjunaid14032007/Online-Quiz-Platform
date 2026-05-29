@@ -174,18 +174,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate score
         let score = 0;
         let correctAnswers = 0;
+        let incorrectAnswers = 0;
         
         const detailedResults = questions.map((q, i) => {
             const isCorrect = userAnswers[i] === q.correctAnswer;
+            const isSkipped = userAnswers[i] === null;
+            
             if (isCorrect) {
                 score += 10;
                 correctAnswers++;
+            } else if (!isSkipped) {
+                score -= 5; // Negative marking
+                incorrectAnswers++;
             }
+
             return {
                 question: q.question,
-                selected: userAnswers[i] !== null ? q.options[userAnswers[i]] : null,
+                selected: !isSkipped ? q.options[userAnswers[i]] : null,
                 correct: q.options[q.correctAnswer],
-                isCorrect: isCorrect
+                isCorrect: isCorrect,
+                isSkipped: isSkipped
             };
         });
 
@@ -199,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
             date: new Date().toISOString()
         };
 
-        // Save result
+        // Save result to session for result.html
         sessionStorage.setItem('last_quiz_result', JSON.stringify(finalResult));
         
         // Save to leaderboard
@@ -210,6 +218,11 @@ document.addEventListener('DOMContentLoaded', () => {
             date: finalResult.date
         });
         localStorage.setItem('quiz_leaderboard', JSON.stringify(leaderboard));
+
+        // Save to Global Analytics Database
+        const allResults = JSON.parse(localStorage.getItem('quiz_all_results')) || [];
+        allResults.push(finalResult);
+        localStorage.setItem('quiz_all_results', JSON.stringify(allResults));
 
         // Redirect
         window.location.href = 'result.html';

@@ -18,6 +18,7 @@
                 <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
                 <li><a href="admin.html" class="nav-link">Admin Panel</a></li>
                 <li><a href="about.html" class="nav-link active">About</a></li>
+                <li id="nav-auth-item"><a href="auth.html" class="nav-link">Login</a></li>
                 <li><button class="btn btn-icon theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
             </ul>
         </div>
@@ -40,10 +41,7 @@
             <div class="glass-panel p-6">
                 <h3 class="mb-4 text-center">Ready to begin?</h3>
                 <form id="start-form" class="flex flex-col gap-4">
-                    <div class="form-group mb-0">
-                        <label for="player-name" class="form-label">Enter your name for the leaderboard</label>
-                        <input type="text" id="player-name" class="form-control" placeholder="e.g., John Doe" required minlength="2" maxlength="20">
-                    </div>
+                    <p class="text-center text-secondary mb-2">You must be logged in to start the quiz.</p>
                     <button type="submit" class="btn btn-primary w-100" style="width: 100%;">Start Quiz</button>
                 </form>
             </div>
@@ -61,10 +59,14 @@
     <script>
         document.getElementById('start-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const playerName = document.getElementById('player-name').value.trim();
-            if (playerName) {
-                sessionStorage.setItem('current_player', playerName);
+            const loggedInUser = sessionStorage.getItem('logged_in_user');
+            if (loggedInUser) {
                 window.location.href = 'quiz.html';
+            } else {
+                if(typeof showToast === 'function') {
+                    showToast('Please login first to take the quiz.', 'danger');
+                }
+                setTimeout(() => window.location.href = 'auth.html', 1500);
             }
         });
     </script>

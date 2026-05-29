@@ -140,6 +140,106 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const demoDataBtn = document.getElementById('demo-data-btn');
+    if (demoDataBtn) {
+        demoDataBtn.addEventListener('click', () => {
+            if (confirm('Load perfect demo data? This will overwrite the leaderboard.')) {
+                const demoLeaderboard = [
+                    { name: "Recruiter A", score: 100, date: new Date().toISOString() },
+                    { name: "Senior Engineer", score: 90, date: new Date(Date.now() - 3600000).toISOString() },
+                    { name: "Intern Candidate", score: 80, date: new Date(Date.now() - 86400000).toISOString() }
+                ];
+                localStorage.setItem('quiz_leaderboard', JSON.stringify(demoLeaderboard));
+                
+                // Force reload of questions from SAMPLE_QUESTIONS
+                localStorage.removeItem('quiz_questions_v3');
+                
+                showToast('Demo data loaded! Refreshing...', 'success');
+                setTimeout(() => window.location.reload(), 1500);
+            }
+        });
+    }
+
+    // --- Tabs Logic ---
+    const tabQuestions = document.getElementById('tab-questions');
+    const tabAnalytics = document.getElementById('tab-analytics');
+    const questionsSection = document.getElementById('questions-section');
+    const analyticsSection = document.getElementById('analytics-section');
+
+    if (tabQuestions && tabAnalytics) {
+        tabQuestions.addEventListener('click', () => {
+            tabQuestions.classList.replace('btn-secondary', 'btn-primary');
+            tabAnalytics.classList.replace('btn-primary', 'btn-secondary');
+            questionsSection.classList.remove('hidden');
+            analyticsSection.classList.add('hidden');
+        });
+
+        tabAnalytics.addEventListener('click', () => {
+            tabAnalytics.classList.replace('btn-secondary', 'btn-primary');
+            tabQuestions.classList.replace('btn-primary', 'btn-secondary');
+            analyticsSection.classList.remove('hidden');
+            questionsSection.classList.add('hidden');
+            renderAnalytics();
+        });
+    }
+
+    // --- Bulk Upload Logic ---
+    const bulkUploadInput = document.getElementById('bulk-upload');
+    if (bulkUploadInput) {
+        bulkUploadInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const importedQuestions = JSON.parse(event.target.result);
+                    if (!Array.isArray(importedQuestions)) throw new Error("File must contain an array of questions.");
+                    
+                    // Simple validation
+                    const validQuestions = importedQuestions.filter(q => q.question && q.options && q.options.length === 4);
+                    
+                    // Assign new IDs
+                    let maxId = questions.length > 0 ? Math.max(...questions.map(q => q.id)) : 0;
+                    validQuestions.forEach(q => {
+                        maxId++;
+                        q.id = maxId;
+                        questions.push(q);
+                    });
+
+                    localStorage.setItem('quiz_questions_v3', JSON.stringify(questions));
+                    renderQuestions(searchInput.value);
+                    showToast(`Successfully imported ${validQuestions.length} questions!`, 'success');
+                } catch (error) {
+                    showToast('Invalid JSON file format.', 'danger');
+                }
+                // Reset input
+                bulkUploadInput.value = '';
+            };
+            reader.readAsText(file);
+        });
+    }
+
+    // --- Analytics Logic ---
+    function renderAnalytics() {
+        const users = JSON.parse(localStorage.getItem('quiz_users')) || [];
+        const allResults = JSON.parse(localStorage.getItem('quiz_all_results')) || [];
+
+        document.getElementById('stat-users').textContent = users.length;
+        document.getElementById('stat-quizzes').textContent = allResults.length;
+
+        if (allResults.length > 0) {
+            const totalScorePercents = allResults.reduce((acc, curr) => {
+                const perc = curr.totalPoints > 0 ? (curr.score / curr.totalPoints) * 100 : 0;
+                return acc + perc;
+            }, 0);
+            const avg = Math.round(totalScorePercents / allResults.length);
+            document.getElementById('stat-score').textContent = `${avg}%`;
+        } else {
+            document.getElementById('stat-score').textContent = `0%`;
+        }
+    }
+
     // Initial render
     renderQuestions();
 });

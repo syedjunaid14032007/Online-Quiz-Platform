@@ -224,6 +224,31 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.remove('active');
         }
     });
+
+    // Handle Global Auth State
+    const loggedInUser = sessionStorage.getItem('logged_in_user');
+    const navAuthItem = document.getElementById('nav-auth-item');
+    
+    // If not logged in and on a protected page, redirect
+    const protectedPages = ['quiz.html', 'result.html'];
+    if (!loggedInUser && protectedPages.includes(currentPath)) {
+        window.location.href = 'auth.html';
+        return;
+    }
+
+    if (navAuthItem) {
+        if (loggedInUser) {
+            navAuthItem.innerHTML = `<a href="#" id="logout-btn" class="nav-link text-danger font-weight-bold">Logout (${loggedInUser})</a>`;
+            document.getElementById('logout-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                sessionStorage.removeItem('logged_in_user');
+                sessionStorage.removeItem('current_player');
+                window.location.href = 'index.html';
+            });
+        } else {
+            navAuthItem.innerHTML = `<a href="auth.html" class="nav-link ${currentPath === 'auth.html' ? 'active' : ''}">Login</a>`;
+        }
+    }
 });
 
 // Toast notification system

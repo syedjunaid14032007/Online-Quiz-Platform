@@ -36,6 +36,7 @@
                 <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
                 <li><a href="admin.html" class="nav-link active">Admin Panel</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
+                <li id="nav-auth-item"><a href="auth.html" class="nav-link">Login</a></li>
                 <li><button class="btn btn-icon theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
             </ul>
         </div>
@@ -44,8 +45,38 @@
     <main class="container">
         <div class="flex justify-between items-center mt-6 mb-6">
             <h2>Admin Dashboard</h2>
-            <button id="add-new-btn" class="btn btn-primary">+ Add New Question</button>
+            <div class="flex gap-2">
+                <button id="tab-questions" class="btn btn-primary">Question Manager</button>
+                <button id="tab-analytics" class="btn btn-secondary">Analytics Dashboard</button>
+                <button id="demo-data-btn" class="btn btn-secondary" title="Load perfect demo data for presentations" style="opacity: 0.5;">🪄 Load Demo Data</button>
+            </div>
         </div>
+
+        <!-- Analytics Dashboard Section -->
+        <div id="analytics-section" class="hidden mb-6">
+            <div class="admin-layout" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 2rem;">
+                <div class="glass-card p-6 text-center">
+                    <h3 class="text-secondary mb-2">Total Users</h3>
+                    <h2 id="stat-users" class="text-primary" style="font-size: 3rem;">0</h2>
+                </div>
+                <div class="glass-card p-6 text-center">
+                    <h3 class="text-secondary mb-2">Quizzes Taken</h3>
+                    <h2 id="stat-quizzes" class="text-primary" style="font-size: 3rem;">0</h2>
+                </div>
+                <div class="glass-card p-6 text-center">
+                    <h3 class="text-secondary mb-2">Avg. Score</h3>
+                    <h2 id="stat-score" class="text-primary" style="font-size: 3rem;">0%</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions Manager Section -->
+        <div id="questions-section">
+            <div class="flex justify-end gap-2 mb-4">
+                <label for="bulk-upload" class="btn btn-secondary cursor-pointer" style="cursor: pointer;">📁 Bulk Upload JSON</label>
+                <input type="file" id="bulk-upload" accept=".json" class="hidden">
+                <button id="add-new-btn" class="btn btn-primary">+ Add New Question</button>
+            </div>
 
         <div class="admin-layout">
             <!-- Form Card (Initially hidden or used for add/edit) -->
@@ -111,6 +142,7 @@
                 </div>
             </div>
         </div>
+        </div> <!-- Close questions-section -->
     </main>
 
     <footer>
